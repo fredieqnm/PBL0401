@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit Mobil</title>
+</head>
+<body>
+
+<h1>{% if car['make'] %}Edit{% else %}Tambah{% endif %} Mobil</h1>
+
+<form method="POST">
+    <label>Merek:</label><br>
+    <input type="text" name="make" value="{{ car['make'] }}"><br><br>
+
+    <label>Model:</label><br>
+    <input type="text" name="model" value="{{ car['model'] }}"><br><br>
+
+    <label>Tahun:</label><br>
+    <input type="text" name="year" value="{{ car['year'] }}"><br><br>
+
+    <button type="submit">Simpan</button>
+    <a href="{{ url_for('list_cars') }}">Batal</a>
+</form>
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    <ul>
+      {% for category, message in messages %}
+        <li class="{{ category }}">{{ message }}</li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
+
+</body>
+</html>

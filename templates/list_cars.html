@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Daftar Mobil</title>
+</head>
+<body>
+
+<h1>Daftar Mobil</h1>
+
+<form method="GET" action="{{ url_for('search_cars') }}">
+    <input type="text" name="q" placeholder="Cari mobil..." value="{{ search_query or '' }}">
+    <button type="submit">Cari</button>
+</form>
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    <ul>
+      {% for category, message in messages %}
+        <li class="{{ category }}">{{ message }}</li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
+
+<ul>
+  {% for car in cars %}
+    <li>
+      {{ car['make'] }} - {{ car['model'] }} ({{ car['year'] }})
+      <a href="{{ url_for('edit_car', car_id=car['id']) }}">Edit</a>
+    </li>
+  {% endfor %}
+</ul>
+
+<a href="{{ url_for('add_car') }}">Tambah Mobil Baru</a>
+
+</body>
+</html>
